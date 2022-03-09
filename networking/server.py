@@ -35,12 +35,12 @@ class Server(QThread):
         except Exception as e:
             print(e)
             # if error occurs try another port number
-            self.port = int(self.port) + random.randint(1, 1000)
+            self.port += random.randint(1, 1000)
             self.serversock.bind((self.host, self.port))
 
         self.serversock.listen(5)
 
-        debugMsg = "Server running on {} at port {}".format(self.host, self.port) 
+        debugMsg = "Server running on {} at port {}".format(self.host, self.port)
         self.debugField.addItem(debugMsg)
         print(debugMsg)
 
@@ -73,7 +73,7 @@ class Server(QThread):
                 self.messageQueue.put(self.data)
 
     def sendMsgs(self):
-        while(not self.messageQueue.empty()):
+        while (not self.messageQueue.empty()):
             if not self.messageQueue.empty():
                 self.message = self.messageQueue.get()
                 self.message = pickle.dumps(self.message)
@@ -82,7 +82,7 @@ class Server(QThread):
                         try:
                             i[1].send(self.message)
                         except:
-                            debugMsg = "[ERROR] Sending message to " + str(i[0])
+                            debugMsg = f"[ERROR] Sending message to {str(i[0])}"
                             print(debugMsg)
                             self.debugField.addItem(debugMsg)
 

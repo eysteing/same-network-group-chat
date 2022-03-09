@@ -21,7 +21,7 @@ class main(QtWidgets.QMainWindow, client_gui.Ui_MainWindow):
         # set default values for hostname and port number
         self.hostname = "127.0.0.1"
         self.port = 8080
-        self.nickname = "User " + str(random.randint(1, 1000))      # use a randomly generated nickname as the default nickname
+        self.nickname = f"User {str(random.randint(1, 1000))}"
 
         # connect the slot method "self.start" to its signals
         self.config.hostnameField.returnPressed.connect(self.start)     # call start method if user enters return in hostname field
@@ -42,7 +42,7 @@ class main(QtWidgets.QMainWindow, client_gui.Ui_MainWindow):
             self.nickname = self.config.nicknameField.text()
 
         self.setWindowTitle(self.nickname + "'s chat")      # change the title of the window
-        self.receivedMessages.append("Your nickname is " + self.nickname)       # show the users nickname
+        self.receivedMessages.append(f"Your nickname is {self.nickname}")
 
         print("Nickname ----:", self.nickname)      # print nickname
         print("Hostname: ---:", self.hostname)      # print hostname

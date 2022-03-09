@@ -61,12 +61,12 @@ class Client(QThread):
                 self.data = pickle.loads(self.data)
                 # if data is not none
                 if self.data:        
-                    # print the nickname and the message        
-                    print(str(self.data[0] + ": " +self.data[1]))
+                    # print the nickname and the message
+                    print(f'{self.data[0]}: {self.data[1]}')
                     # do not show the message if you're the sender
                     if self.data[0] != self.nickname:
                         #self.emit(QtCore.SIGNAL("MESSAGES", self.message))
-                        self.receivedMessage.append(str(self.data[0] + ": " +self.data[1]))
+                        self.receivedMessage.append(str(f'{self.data[0]}: {self.data[1]}'))
             except:
                 # To Do make pop up to show error
                 print("Error receiving")       # print error
@@ -77,7 +77,7 @@ class Client(QThread):
     # this method is a PyQt slot
     def send(self):
         self.message = self.messageEdit.text()                  # get the text currently in the text edit field
-        self.receivedMessage.append("You: " + self.message)     # show the message in chat history
+        self.receivedMessage.append(f"You: {self.message}")
         self.messageEdit.setText("")                            # set the text in the text edit field to an empty string
         self.data = (self.nickname, self.message)               # bundle up senders nickname and the message into a list
         self.data = pickle.dumps(self.data)                     # convert the list to byte format
